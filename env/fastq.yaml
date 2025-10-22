@@ -1,0 +1,7 @@
+name: fastq-env
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - sra-tools
+  - gzip

@@ -1,0 +1,6 @@
+name: prefetch-env
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - sra-tools
