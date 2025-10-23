@@ -1,0 +1,3 @@
+SyntaxError in file "/home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/Snakefile", line 21:
+Multiple run/shell/script/notebook/wrapper/template_engine/cwl keywords in rule filtro_microglia.:
+None
