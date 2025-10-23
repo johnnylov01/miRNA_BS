@@ -1,0 +1,38 @@
+Assuming unrestricted shared filesystem usage.
+host: lab-biomed-Latitude-5420
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                 count
+----------------  -------
+all                     1
+filtro_microglia        1
+total                   2
+
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Oct 23 16:10:34 2025]
+localrule filtro_microglia:
+    input: data/metadata.tsv, db/DB_Microglial_exosomes_literature.xlsx
+    output: data/metadata_microglia.tsv
+    log: logs/filtro_microglia.log
+    jobid: 1
+    reason: Missing output files: data/metadata_microglia.tsv
+    resources: tmpdir=/tmp
+[Thu Oct 23 16:10:35 2025]
+Finished jobid: 1 (Rule: filtro_microglia)
+1 of 2 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Thu Oct 23 16:10:35 2025]
+localrule all:
+    input: data/metadata_microglia.tsv
+    jobid: 0
+    reason: Rules with a run or shell declaration but no output are always executed.
+    resources: tmpdir=/tmp
+[Thu Oct 23 16:10:35 2025]
+Finished jobid: 0 (Rule: all)
+2 of 2 steps (100%) done
+Complete log(s): /home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/.snakemake/log/2025-10-23T161034.202321.snakemake.log
