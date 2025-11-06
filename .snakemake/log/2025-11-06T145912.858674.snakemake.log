@@ -1,0 +1,8 @@
+SyntaxError in line 9 of /home/lab-biomed/anaconda3/envs/miRNA/lib/python3.6/site-packages/smart_open/s3.py:
+future feature annotations is not defined (s3.py, line 9)
+  File "/home/lab-biomed/anaconda3/envs/miRNA/lib/python3.6/site-packages/smart_open/__init__.py", line 34, in <module>
+  File "/home/lab-biomed/anaconda3/envs/miRNA/lib/python3.6/site-packages/smart_open/smart_open_lib.py", line 35, in <module>
+  File "/home/lab-biomed/anaconda3/envs/miRNA/lib/python3.6/site-packages/smart_open/doctools.py", line 21, in <module>
+  File "/home/lab-biomed/anaconda3/envs/miRNA/lib/python3.6/site-packages/smart_open/transport.py", line 104, in <module>
+  File "/home/lab-biomed/anaconda3/envs/miRNA/lib/python3.6/site-packages/smart_open/transport.py", line 49, in register_transport
+  File "/home/lab-biomed/anaconda3/envs/miRNA/lib/python3.6/importlib/__init__.py", line 126, in import_module

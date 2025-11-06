@@ -1,0 +1,79 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+all                      1
+clean_srr                1
+control_Microglia        1
+dir_proy                 1
+total                    4
+
+Select jobs to execute...
+
+[Thu Nov  6 15:07:40 2025]
+rule clean_srr:
+    input: data/metadata_microglia.tsv
+    output: txt/srrs_clean.txt
+    log: logs/clean_srr.log
+    jobid: 6
+    reason: Missing output files: txt/srrs_clean.txt; Updated input files: data/metadata_microglia.tsv
+    resources: tmpdir=/tmp
+
+[Thu Nov  6 15:07:41 2025]
+Finished job 6.
+1 of 4 steps (25%) done
+Select jobs to execute...
+
+[Thu Nov  6 15:07:41 2025]
+rule control_Microglia:
+    input: txt/srrs_clean.txt
+    output: txt/microglia_exosome_control.txt
+    jobid: 5
+    reason: Input files updated by another job: txt/srrs_clean.txt
+    resources: tmpdir=/tmp
+
+[Thu Nov  6 15:11:21 2025]
+Finished job 5.
+2 of 4 steps (50%) done
+Removing temporary output txt/srrs_clean.txt.
+Select jobs to execute...
+
+[Thu Nov  6 15:11:21 2025]
+rule dir_proy:
+    input: data/metadata_microglia.tsv, txt/microglia_exosome_control.txt
+    output: Pipeline/Projects
+    jobid: 1
+    reason: Input files updated by another job: txt/microglia_exosome_control.txt
+    resources: tmpdir=/tmp
+
+[Thu Nov  6 15:11:22 2025]
+Finished job 1.
+3 of 4 steps (75%) done
+Select jobs to execute...
+
+[Thu Nov  6 15:11:22 2025]
+rule all:
+    input: Pipeline/Projects
+    jobid: 0
+    reason: Input files updated by another job: Pipeline/Projects
+    resources: tmpdir=/tmp
+
+[Thu Nov  6 15:11:22 2025]
+Error in rule all:
+    jobid: 0
+    input: Pipeline/Projects
+    shell:
+        
+        cat extras/title.txt
+        echo "Metadata de proyectos de microglía guardada en "
+        echo "Para consultarlo en txt, el archivo se encuentra en txt/metadata_microglia.tsv.txt"
+        cp Pipeline/Projects txt/metadata_microglia.tsv.txt
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-11-06T150740.517941.snakemake.log

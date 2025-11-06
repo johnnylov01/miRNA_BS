@@ -1,0 +1,10 @@
+
+        #Consulta a NCBI SRA para obtener la metadata de los proyectos
+        QUERY=$(awk '{printf "%s%s", sep, $0; sep=" OR "}' txt/microglia_projects.txt)
+        #Impresión de la consulta (para debugging)
+        echo "La consulta a NCBI es:"
+        echo "$QUERY"
+    
+        #Búsqueda
+        (esearch -db sra -query "$QUERY" | efetch -format runinfo > data/metadata_microglia.tsv) 2> logs/log_metadata_MC.log
+        
