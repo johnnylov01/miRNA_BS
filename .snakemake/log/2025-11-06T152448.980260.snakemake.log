@@ -1,0 +1,49 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job         count
+--------  -------
+all             1
+dir_proy        1
+total           2
+
+Select jobs to execute...
+
+[Thu Nov  6 15:24:49 2025]
+rule dir_proy:
+    input: data/metadata_microglia.tsv, txt/microglia_exosome_control.txt
+    output: Pipeline/Projects
+    jobid: 1
+    reason: Missing output files: Pipeline/Projects
+    resources: tmpdir=/tmp
+
+[Thu Nov  6 15:24:49 2025]
+Finished job 1.
+1 of 2 steps (50%) done
+Select jobs to execute...
+
+[Thu Nov  6 15:24:49 2025]
+rule all:
+    input: Pipeline/Projects
+    jobid: 0
+    reason: Rules with a run or shell declaration but no output are always executed.
+    resources: tmpdir=/tmp
+
+[Thu Nov  6 15:24:49 2025]
+Error in rule all:
+    jobid: 0
+    input: Pipeline/Projects
+    shell:
+        
+        cat extras/title.txt
+        echo "Metadata de proyectos de microglía guardada en "
+        echo "Para consultarlo en txt, el archivo se encuentra en txt/metadata_microglia.tsv.txt"
+        cp Pipeline/Projects txt/metadata_microglia.tsv.txt
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-11-06T152448.980260.snakemake.log

@@ -4,6 +4,6 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10
-  - entrez-direct
+  - entrez
   - coreutils
   - entrez-direct

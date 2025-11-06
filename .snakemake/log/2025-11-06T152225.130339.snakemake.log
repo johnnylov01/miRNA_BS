@@ -1,0 +1,35 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job         count
+--------  -------
+all             1
+dir_proy        1
+total           2
+
+Select jobs to execute...
+
+[Thu Nov  6 15:22:25 2025]
+rule dir_proy:
+    input: data/metadata_microglia.tsv, txt/microglia_exosome_control.txt
+    output: Pipeline/Projects
+    jobid: 1
+    reason: Code has changed since last execution
+    resources: tmpdir=/tmp
+
+[Thu Nov  6 15:22:25 2025]
+Error in rule dir_proy:
+    jobid: 1
+    input: data/metadata_microglia.tsv, txt/microglia_exosome_control.txt
+    output: Pipeline/Projects
+
+RuleException:
+CalledProcessError in file /home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/Snakefile, line 75:
+Command 'set -euo pipefail;  /home/lab-biomed/anaconda3/envs/miRNA/bin/python3.8 /home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/.snakemake/scripts/tmpb0xupgmw.runs_projects.py' returned non-zero exit status 1.
+  File "/home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/Snakefile", line 75, in __rule_dir_proy
+  File "/home/lab-biomed/anaconda3/envs/miRNA/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-11-06T152225.130339.snakemake.log

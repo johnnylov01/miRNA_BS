@@ -1,0 +1,55 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                   count
+------------------  -------
+Metadata_Microglia        1
+all                       1
+clean_srr                 1
+control_Microglia         1
+dir_proy                  1
+total                     5
+
+Select jobs to execute...
+
+[Thu Nov  6 15:02:47 2025]
+rule Metadata_Microglia:
+    input: txt/microglia_projects.txt
+    output: data/metadata_microglia.tsv
+    log: logs/log_metadata_MC.log
+    jobid: 2
+    reason: Set of input files has changed since last execution; Code has changed since last execution
+    resources: tmpdir=/tmp
+
+[Thu Nov  6 15:03:08 2025]
+Finished job 2.
+1 of 5 steps (20%) done
+Removing temporary output txt/microglia_projects.txt.
+Select jobs to execute...
+
+[Thu Nov  6 15:03:08 2025]
+rule clean_srr:
+    input: data/metadata_microglia.tsv
+    output: txt/srrs_clean.txt
+    log: logs/clean_srr.log
+    jobid: 6
+    reason: Input files updated by another job: data/metadata_microglia.tsv
+    resources: tmpdir=/tmp
+
+[Thu Nov  6 15:03:08 2025]
+Error in rule clean_srr:
+    jobid: 6
+    input: data/metadata_microglia.tsv
+    output: txt/srrs_clean.txt
+    log: logs/clean_srr.log (check log file(s) for error details)
+
+RuleException:
+CalledProcessError in file /home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/Snakefile, line 58:
+Command 'set -euo pipefail;  /home/lab-biomed/anaconda3/envs/miRNA/bin/python3.8 /home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/.snakemake/scripts/tmpyrzouky4.clean_srr.py' returned non-zero exit status 1.
+  File "/home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/Snakefile", line 58, in __rule_clean_srr
+  File "/home/lab-biomed/anaconda3/envs/miRNA/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-11-06T150246.861205.snakemake.log
