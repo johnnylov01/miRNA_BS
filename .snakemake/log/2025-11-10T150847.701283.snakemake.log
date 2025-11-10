@@ -1,0 +1,13 @@
+Building DAG of jobs...
+AmbiguousRuleException:
+Rules download_single and download_paired are ambiguous for the file Pipeline/PAIRED/Mus_musculus/PRJNA1003103/SRR25558026/SRR25558026_1.fastq.gz.
+Consider starting rule output with a unique prefix, constrain your wildcards, or use the ruleorder directive.
+Wildcards:
+	download_single: bioproject=PRJNA1003103,layout=PAIRED,organism=Mus_musculus,run=SRR25558026
+	download_paired: bioproject=PRJNA1003103,layout=PAIRED,organism=Mus_musculus,run=SRR25558026
+Expected input files:
+	download_single: 
+	download_paired: 
+Expected output files:
+	download_single: Pipeline/PAIRED/Mus_musculus/PRJNA1003103/SRR25558026/SRR25558026_1.fastq.gz
+	download_paired: Pipeline/PAIRED/Mus_musculus/PRJNA1003103/SRR25558026/SRR25558026_1.fastq.gz Pipeline/PAIRED/Mus_musculus/PRJNA1003103/SRR25558026/SRR25558026_2.fastq.gz

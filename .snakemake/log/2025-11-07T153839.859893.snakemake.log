@@ -1,0 +1,35 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+all                      1
+control_Microglia        1
+dir_proy                 1
+total                    3
+
+Select jobs to execute...
+
+[Fri Nov  7 15:38:40 2025]
+rule control_Microglia:
+    input: txt/srrs_clean.txt
+    output: txt/microglia_exosome_control.txt
+    jobid: 5
+    reason: Missing output files: txt/microglia_exosome_control.txt
+    resources: tmpdir=/tmp
+
+Terminating processes on user request, this might take some time.
+[Fri Nov  7 15:38:47 2025]
+Error in rule control_Microglia:
+    jobid: 5
+    input: txt/srrs_clean.txt
+    output: txt/microglia_exosome_control.txt
+
+RuleException:
+CalledProcessError in file /home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/Snakefile, line 65:
+Command 'set -euo pipefail;  /home/lab-biomed/anaconda3/envs/miRNA/bin/python3.8 /home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/.snakemake/scripts/tmpi0gka93i.control_microglia.py' died with <Signals.SIGINT: 2>.
+  File "/home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/Snakefile", line 65, in __rule_control_Microglia
+  File "/home/lab-biomed/anaconda3/envs/miRNA/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Complete log: .snakemake/log/2025-11-07T153839.859893.snakemake.log

@@ -1,0 +1,35 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                count
+---------------  -------
+all                    1
+download_paired       95
+download_single       95
+total                191
+
+Select jobs to execute...
+
+[Mon Nov 10 15:10:18 2025]
+rule download_single:
+    output: Pipeline/SINGLE/Mus_musculus/PRJNA1003103/SRR25557958/SRR25557958_1.fastq.gz
+    jobid: 109
+    reason: Missing output files: Pipeline/SINGLE/Mus_musculus/PRJNA1003103/SRR25557958/SRR25557958_1.fastq.gz
+    wildcards: organism=Mus_musculus, bioproject=PRJNA1003103, run=SRR25557958
+    resources: tmpdir=/tmp
+
+RuleException in rule download_single in file /home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/Snakefile, line 121:
+AttributeError: 'Wildcards' object has no attribute 'layout', when formatting the following:
+
+        echo "=== Descargando single-end {wildcards.run} ===" 
+        mkdir -p Pipeline/{wildcards.layout}/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}
+        
+        fasterq-dump {wildcards.run} \
+            --outdir Pipeline/{wildcards.layout}/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}
+        
+        gzip Pipeline/{wildcards.layout}/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}/{wildcards.run}.fastq
+        mv Pipeline/{wildcards.layout}/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}/{wildcards.run}.fastq.gz \
+           Pipeline/{wildcards.layout}/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}/{wildcards.run}_1.fastq.gz
+        

@@ -1,0 +1,35 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job               count
+--------------  -------
+all                   1
+config_samples        1
+total                 2
+
+Select jobs to execute...
+
+[Mon Nov 10 14:19:46 2025]
+rule config_samples:
+    input: Pipeline/Projects
+    output: config/samples_config.yaml
+    jobid: 1
+    reason: Missing output files: config/samples_config.yaml
+    resources: tmpdir=/tmp
+
+[Mon Nov 10 14:19:46 2025]
+Error in rule config_samples:
+    jobid: 1
+    input: Pipeline/Projects
+    output: config/samples_config.yaml
+
+RuleException:
+CalledProcessError in file /home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/Snakefile, line 82:
+Command 'set -euo pipefail;  /home/lab-biomed/anaconda3/envs/miRNA/bin/python3.8 /home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/.snakemake/scripts/tmpdke2psrq.create_config.py' returned non-zero exit status 1.
+  File "/home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/Snakefile", line 82, in __rule_config_samples
+  File "/home/lab-biomed/anaconda3/envs/miRNA/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-11-10T141946.193554.snakemake.log

@@ -1,0 +1,44 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+all                      1
+clean_srr                1
+control_Microglia        1
+dir_proy                 1
+total                    4
+
+Select jobs to execute...
+
+[Fri Nov  7 15:34:31 2025]
+rule clean_srr:
+    input: data/metadata_microglia.tsv
+    output: txt/srrs_clean.txt
+    log: logs/clean_srr.log
+    jobid: 6
+    reason: Missing output files: txt/srrs_clean.txt
+    resources: tmpdir=/tmp
+
+[Fri Nov  7 15:34:31 2025]
+Finished job 6.
+1 of 4 steps (25%) done
+Select jobs to execute...
+
+[Fri Nov  7 15:34:31 2025]
+rule control_Microglia:
+    input: txt/srrs_clean.txt
+    output: txt/microglia_exosome_control.txt
+    jobid: 5
+    reason: Input files updated by another job: txt/srrs_clean.txt; Code has changed since last execution
+    resources: tmpdir=/tmp
+
+Waiting at most 5 seconds for missing files.
+MissingOutputException in rule control_Microglia in file /home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/Snakefile, line 59:
+Job 5  completed successfully, but some output files are missing. Missing files after 5 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+txt/microglia_exosome_control.txt
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-11-07T153430.990779.snakemake.log

@@ -1,13 +1,29 @@
+import yaml
+with open("config/samples_config.yaml") as f:
+    samples_config = yaml.safe_load(f)['samples']
+runs_paired = [s for s in samples_config if s["layout"].upper() == "PAIRED"]
+runs_single = [s for s in samples_config if s["layout"].upper() == "SINGLE"]    
+
+    
 rule all:
     input:
-        "Pipeline/Projects"
-    shell:
-        """
-        cat extras/title.txt
-        echo "Metadata de proyectos de microglía guardada en {output}"
-        echo "Para consultarlo en txt, el archivo se encuentra en txt/metadata_microglia.tsv.txt"
-        cp {input} txt/metadata_microglia.tsv.txt
-        """
+        # Todos los FASTQ1 (single + paired)
+        "config/samples_config.yaml",
+        expand(
+            "Pipeline/{layout}/{organism}/{bioproject}/{run}/{run}_1.fastq.gz",
+            layout=[s["layout"] for s in samples_config],
+            organism=[s["organism"] for s in samples_config],
+            bioproject=[s["bioproject"] for s in samples_config],
+            run=[s["run"] for s in samples_config],
+        ),
+        # Solo los FASTQ2 para las paired
+        expand(
+            "Pipeline/{layout}/{organism}/{bioproject}/{run}/{run}_2.fastq.gz",
+            layout=[s["layout"] for s in runs_paired],
+            organism=[s["organism"] for s in runs_paired],
+            bioproject=[s["bioproject"] for s in runs_paired],
+            run=[s["run"] for s in runs_paired],
+        )
         
 rule filtro1:
     input:
@@ -51,7 +67,7 @@ rule clean_srr:
     input:
         "data/metadata_microglia.tsv"
     output:
-        temp("txt/srrs_clean.txt")
+        "txt/srrs_clean.txt"
     log:
         "logs/clean_srr.log"
     script:
@@ -73,6 +89,50 @@ rule dir_proy:
         directory("Pipeline/Projects")
     script:
         "scripts/runs_projects.py"
+
+rule config_samples:
+    input:
+        "Pipeline/Projects"
+    output:
+        "config/samples_config.yaml"
+    script:
+        "scripts/create_config.py"
+
+#Regla para layouts PAIRED
+rule download_paired:
+    output:
+        fq1="Pipeline/PAIRED/{organism}/{bioproject}/{run}/{run}_1.fastq.gz",
+        fq2="Pipeline/PAIRED/{organism}/{bioproject}/{run}/{run}_2.fastq.gz"
+    shell:
+        r"""
+        echo "=== Descargando paired-end {wildcards.run} ==="
+        mkdir -p Pipeline/PAIRED/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}
+        
+        fasterq-dump {wildcards.run} --split-files \
+            --outdir Pipeline/PAIRED/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}
+        
+        gzip Pipeline/PAIRED/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}/{wildcards.run}_1.fastq
+        gzip Pipeline/PAIRED/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}/{wildcards.run}_2.fastq
+        """
+
+
+#Regla para layouts SINGLE
+rule download_single:
+    output:
+        fq1="Pipeline/SINGLE/{organism}/{bioproject}/{run}/{run}_1.fastq.gz"
+    shell:
+        r"""
+        echo "=== Descargando single-end {wildcards.run} ===" 
+        mkdir -p Pipeline/SINGLE/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}
+        
+        fasterq-dump {wildcards.run} \
+            --outdir Pipeline/SINGLE/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}
+        
+        gzip Pipeline/SINGLE/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}/{wildcards.run}.fastq
+        mv Pipeline/SINGLE/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}/{wildcards.run}.fastq.gz \
+           Pipeline/SINGLE/{wildcards.organism}/{wildcards.bioproject}/{wildcards.run}/{wildcards.run}_1.fastq.gz
+        """
+
 # rule control:
 #     input:
 #         "data/metadata_microglia.tsv"

@@ -1,0 +1,37 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job               count
+--------------  -------
+all                   1
+config_samples        1
+total                 2
+
+Select jobs to execute...
+
+[Mon Nov 10 14:20:07 2025]
+rule config_samples:
+    input: Pipeline/Projects
+    output: config/samples_config.yaml
+    jobid: 1
+    reason: Missing output files: config/samples_config.yaml
+    resources: tmpdir=/tmp
+
+[Mon Nov 10 14:20:07 2025]
+Finished job 1.
+1 of 2 steps (50%) done
+Select jobs to execute...
+
+[Mon Nov 10 14:20:07 2025]
+rule all:
+    input: config/samples_config.yaml
+    jobid: 0
+    reason: Rules with a run or shell declaration but no output are always executed.
+    resources: tmpdir=/tmp
+
+[Mon Nov 10 14:20:07 2025]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: .snakemake/log/2025-11-10T142007.441140.snakemake.log
