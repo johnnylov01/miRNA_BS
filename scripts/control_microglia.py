@@ -17,7 +17,7 @@ with open(accession_file) as f:
         print(f"Procesando {acc}...")
         cmd = f"esearch -db sra -query {acc} | efetch -format xml"
         try:
-            xml_output = subprocess.check_output(cmd, shell=True, universal_newlines=True)
+            xml_output = subprocess.check_output(cmd, shell=True, text=True)
         except subprocess.CalledProcessError:
             print(f"Error al procesar {acc}")
             continue
@@ -33,7 +33,7 @@ with open(accession_file) as f:
         run_accession = run_elem.attrib.get("accession") if run_elem is not None else acc
 
         # Atributos conocidos
-        treatment, cell_line, tissue = None, None, None
+        treatment, cell_line, tissue, organism = None, None, None, None
 
         # Buscar tags específicos
         for attr in root.findall(".//SAMPLE_ATTRIBUTE"):
@@ -48,6 +48,11 @@ with open(accession_file) as f:
                     cell_line = val
                 elif tag == "tissue":
                     tissue = val
+
+        # Buscar organismo
+        org_elem = root.find(".//SAMPLE_NAME/SCIENTIFIC_NAME")
+        if org_elem is not None and org_elem.text:
+            organism = org_elem.text.strip()
 
         # Si no hay tratamiento explícito, intentar inferirlo
         if not treatment:
@@ -67,7 +72,8 @@ with open(accession_file) as f:
         metadata_map[run_accession] = {
             "treatment": treatment or "N/A",
             "cell_line": cell_line or "N/A",
-            "tissue": tissue or "N/A"
+            "tissue": tissue or "N/A",
+            "organism": organism or "N/A"
         }
 
         # Revisar si menciona microglia/exosomes y es control
@@ -78,7 +84,7 @@ with open(accession_file) as f:
 # Mostrar resultados generales
 print("\nResultados:")
 for run, meta in metadata_map.items():
-    print(f"{run}: treatment={meta['treatment']}, cell_line={meta['cell_line']}, tissue={meta['tissue']}")
+    print(f"{run}: treatment={meta['treatment']}, cell_line={meta['cell_line']}, tissue={meta['tissue']}, organism={meta['organism']}")
 
 # Mostrar los runs de interés
 print("\nRuns que son microglia/exosome y control:")
@@ -87,7 +93,9 @@ for run in microglia_exo_control_runs:
 
 print(f"\nTotal: {len(microglia_exo_control_runs)} runs detectados con microglia/exosome y control")
 
-# (Opcional) Guardar en un archivo
-with open(snakemake.output[0], "w") as out:
+# Guardar en un archivo con organismo incluido
+with open("txt/microglia_exosome_control.txt", "w") as out:
+    out.write("Run\tOrganism\n")
     for run in microglia_exo_control_runs:
-        out.write(run + "\n")
+        organism = metadata_map[run]["organism"]
+        out.write(f"{run}\t{organism}\n")

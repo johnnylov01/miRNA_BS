@@ -1,0 +1,3 @@
+SyntaxError:
+Only input files can be specified as functions
+  File "/home/lab-biomed/Repositorios/miRNASeq/miRNA_BS/Snakefile", line 107, in <module>

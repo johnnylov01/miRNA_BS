@@ -1,0 +1,122 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                count
+---------------  -------
+all                    1
+download_paired       95
+download_single       95
+total                191
+
+Select jobs to execute...
+
+[Mon Nov 10 15:12:07 2025]
+rule download_paired:
+    output: Pipeline/PAIRED/Mus_musculus/PRJNA1119183/SRR29258154/SRR29258154_1.fastq.gz, Pipeline/PAIRED/Mus_musculus/PRJNA1119183/SRR29258154/SRR29258154_2.fastq.gz
+    jobid: 81
+    reason: Missing output files: Pipeline/PAIRED/Mus_musculus/PRJNA1119183/SRR29258154/SRR29258154_1.fastq.gz, Pipeline/PAIRED/Mus_musculus/PRJNA1119183/SRR29258154/SRR29258154_2.fastq.gz
+    wildcards: organism=Mus_musculus, bioproject=PRJNA1119183, run=SRR29258154
+    resources: tmpdir=/tmp
+
+
+[Mon Nov 10 15:12:07 2025]
+rule download_paired:
+    output: Pipeline/PAIRED/Mus_musculus/PRJNA1003105/SRR25557959/SRR25557959_1.fastq.gz, Pipeline/PAIRED/Mus_musculus/PRJNA1003105/SRR25557959/SRR25557959_2.fastq.gz
+    jobid: 53
+    reason: Missing output files: Pipeline/PAIRED/Mus_musculus/PRJNA1003105/SRR25557959/SRR25557959_1.fastq.gz, Pipeline/PAIRED/Mus_musculus/PRJNA1003105/SRR25557959/SRR25557959_2.fastq.gz
+    wildcards: organism=Mus_musculus, bioproject=PRJNA1003105, run=SRR25557959
+    resources: tmpdir=/tmp
+
+
+[Mon Nov 10 15:12:07 2025]
+rule download_single:
+    output: Pipeline/SINGLE/Mus_musculus/PRJNA1119183/SRR25557958/SRR25557958_1.fastq.gz
+    jobid: 166
+    reason: Missing output files: Pipeline/SINGLE/Mus_musculus/PRJNA1119183/SRR25557958/SRR25557958_1.fastq.gz
+    wildcards: organism=Mus_musculus, bioproject=PRJNA1119183, run=SRR25557958
+    resources: tmpdir=/tmp
+
+
+[Mon Nov 10 15:12:07 2025]
+rule download_single:
+    output: Pipeline/SINGLE/Mus_musculus/PRJNA1003104/SRR25558025/SRR25558025_1.fastq.gz
+    jobid: 123
+    reason: Missing output files: Pipeline/SINGLE/Mus_musculus/PRJNA1003104/SRR25558025/SRR25558025_1.fastq.gz
+    wildcards: organism=Mus_musculus, bioproject=PRJNA1003104, run=SRR25558025
+    resources: tmpdir=/tmp
+
+[Mon Nov 10 15:12:07 2025]
+Error in rule download_paired:
+    jobid: 81
+    output: Pipeline/PAIRED/Mus_musculus/PRJNA1119183/SRR29258154/SRR29258154_1.fastq.gz, Pipeline/PAIRED/Mus_musculus/PRJNA1119183/SRR29258154/SRR29258154_2.fastq.gz
+    shell:
+        
+        echo "=== Descargando paired-end SRR29258154 ==="
+        mkdir -p Pipeline/PAIRED/Mus_musculus/PRJNA1119183/SRR29258154
+        
+        fasterq-dump SRR29258154 --split-files \
+            --outdir Pipeline/PAIRED/Mus_musculus/PRJNA1119183/SRR29258154
+        
+        gzip Pipeline/PAIRED/Mus_musculus/PRJNA1119183/SRR29258154/SRR29258154_1.fastq
+        gzip Pipeline/PAIRED/Mus_musculus/PRJNA1119183/SRR29258154/SRR29258154_2.fastq
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Nov 10 15:12:07 2025]
+Error in rule download_paired:
+    jobid: 53
+    output: Pipeline/PAIRED/Mus_musculus/PRJNA1003105/SRR25557959/SRR25557959_1.fastq.gz, Pipeline/PAIRED/Mus_musculus/PRJNA1003105/SRR25557959/SRR25557959_2.fastq.gz
+    shell:
+        
+        echo "=== Descargando paired-end SRR25557959 ==="
+        mkdir -p Pipeline/PAIRED/Mus_musculus/PRJNA1003105/SRR25557959
+        
+        fasterq-dump SRR25557959 --split-files \
+            --outdir Pipeline/PAIRED/Mus_musculus/PRJNA1003105/SRR25557959
+        
+        gzip Pipeline/PAIRED/Mus_musculus/PRJNA1003105/SRR25557959/SRR25557959_1.fastq
+        gzip Pipeline/PAIRED/Mus_musculus/PRJNA1003105/SRR25557959/SRR25557959_2.fastq
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Nov 10 15:12:07 2025]
+Error in rule download_single:
+    jobid: 166
+    output: Pipeline/SINGLE/Mus_musculus/PRJNA1119183/SRR25557958/SRR25557958_1.fastq.gz
+    shell:
+        
+        echo "=== Descargando single-end SRR25557958 ===" 
+        mkdir -p Pipeline/SINGLE/Mus_musculus/PRJNA1119183/SRR25557958
+        
+        fasterq-dump SRR25557958 \
+            --outdir Pipeline/SINGLE/Mus_musculus/PRJNA1119183/SRR25557958
+        
+        gzip Pipeline/SINGLE/Mus_musculus/PRJNA1119183/SRR25557958/SRR25557958.fastq
+        mv Pipeline/SINGLE/Mus_musculus/PRJNA1119183/SRR25557958/SRR25557958.fastq.gz \
+           Pipeline/SINGLE/Mus_musculus/PRJNA1119183/SRR25557958/SRR25557958_1.fastq.gz
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Nov 10 15:12:07 2025]
+Error in rule download_single:
+    jobid: 123
+    output: Pipeline/SINGLE/Mus_musculus/PRJNA1003104/SRR25558025/SRR25558025_1.fastq.gz
+    shell:
+        
+        echo "=== Descargando single-end SRR25558025 ===" 
+        mkdir -p Pipeline/SINGLE/Mus_musculus/PRJNA1003104/SRR25558025
+        
+        fasterq-dump SRR25558025 \
+            --outdir Pipeline/SINGLE/Mus_musculus/PRJNA1003104/SRR25558025
+        
+        gzip Pipeline/SINGLE/Mus_musculus/PRJNA1003104/SRR25558025/SRR25558025.fastq
+        mv Pipeline/SINGLE/Mus_musculus/PRJNA1003104/SRR25558025/SRR25558025.fastq.gz \
+           Pipeline/SINGLE/Mus_musculus/PRJNA1003104/SRR25558025/SRR25558025_1.fastq.gz
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-11-10T151200.033827.snakemake.log
